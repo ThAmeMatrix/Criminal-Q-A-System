@@ -1,0 +1,6 @@
+﻿nCase:案件
+nCrime:罪
+nDrug:毒品
+nPenalty:刑
+nPeople:人
+nLocation:地点

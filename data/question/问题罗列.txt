@@ -1,0 +1,38 @@
+nCase 地点
+nCase 时间
+nCase 人数
+nCase 法院
+nCase 第一被告
+nCase 最小涉案人员年龄
+nCase 最小涉案人员生日
+nCase 罪
+nCase 刑
+nCase 刑期
+nCase 罚金 多少
+nCase 毒品
+nCase 毒品 数量
+nCase 毒品 单价
+
+nPerson 案件
+nPerson
+
+nLocation发生了多少起案件
+nLocation中涉案人员最小年龄
+nLocation最长刑期
+nLocation判的案件平均刑期
+nLocation判的案件最高罚金
+
+nYear判的案件中最长刑期
+nYear判的案件平均刑期
+nYear判的案件最高罚金
+nYear涉案总人数
+nYear发生了多少起案件
+nYear中涉案人员最小年龄
+nYear中涉案人员最小年龄的平均值{sum(min_age) / n}
+
+nYear在nLocation发生了多少起案件
+nYear在nLocation涉案总人数
+
+
+总共的团队犯案比例
+青年人犯罪的比例(min_age<=30)

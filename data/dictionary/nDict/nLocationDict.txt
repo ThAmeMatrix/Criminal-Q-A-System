@@ -1,0 +1,11 @@
+嘉兴市南湖区 nLocation 1
+嘉兴市秀洲区 nLocation 1
+嘉善县 nLocation 1
+海盐县 nLocation 1
+海宁市 nLocation 1
+平湖市 nLocation 1
+桐乡市 nLocation 1
+舟山市定海区 nLocation 1
+舟山市普陀区 nLocation 1
+嵊泗县 nLocation 1
+岱山县 nLocation 1

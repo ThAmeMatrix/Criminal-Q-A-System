@@ -1,0 +1,20 @@
+0:nCase_nPerson 地点
+1:nCase_nPerson 时间
+2:nCase_nPerson 人数
+3:nCase_nPerson 法院
+4:nCase_nPerson 第一被告
+5:nCase_nPerson 最小 年龄
+6:nCase_nPerson 最小 生日
+7:nCase_nPerson 罪
+8:nCase_nPerson 刑
+9:nCase_nPerson 刑期
+10:nCase_nPerson 罚金
+11:nCase_nPerson 毒品
+12:nPerson 案件
+13:nYear_nLocation 案件 数量
+14:nYear_nLocation 最小 年龄
+15:nYear_nLocation 最高 罚金
+16:nYear_nLocation 总 罚金
+17:nYear_nLocation 总 人数
+18:nLocation 总 团队 犯案 比例
+19:nLocation 青年 犯罪 比例

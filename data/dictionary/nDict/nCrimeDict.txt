@@ -1,0 +1,11 @@
+﻿贩卖毒品罪 nCrime 1
+贩卖毒品罪，容留他人吸毒罪 nCrime 1
+贩卖毒品罪，容留他人吸毒品罪 nCrime 1
+容留他人吸毒罪，贩卖毒品罪 nCrime 1
+非法持有毒品罪 nCrime 1
+运输毒品罪 nCrime 1
+贩卖毒品罪，盗窃罪 nCrime 1
+容留他人吸毒罪 nCrime 1
+贩卖毒品罪，故意伤害罪 nCrime 1
+贩卖、运输毒品罪 nCrime 1
+贩卖、运输毒品罪，容留他人吸毒罪 nCrime 1
