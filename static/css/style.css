@@ -1,0 +1,120 @@
+/* cytoscape graph */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style-type: none;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: url(../img/bg.jpg) no-repeat;
+    background-size: 100% 110%;
+}
+#title {
+    /*border: solid 10px yellow;*/
+    width: 800px;
+    height: 150px;
+    margin: 20px auto;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    text-align: center;
+    text-indent: 0;
+}
+
+#title p {
+    /*font-family: "微软雅黑";*/
+    height: 100px;
+    font-weight: bold;
+    font-size: 42px;
+    line-height: 30px;
+    text-align: center;
+    color: #333333;
+}
+
+#title img{
+    width: 200px;
+    height: 78px;
+}
+
+#search {
+    width: 900px;
+    height: 90px;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+#search img {
+    width: 180px;
+    height: 114px;
+    border: solid gray 2px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+#research, #output {
+    width: 700px;
+    height: 30px;
+    float: right;
+    margin-top: 8px;
+}
+
+#research input {
+    display: block;
+    width: 500px;
+    height: 30px;
+    float: left;
+    background-color: #eee;
+    font-size: 15px;
+    color: #333333;
+    line-height: 40px;
+    text-align: left;
+    text-indent: 10px;
+}
+
+#research button {
+    width: 200px;
+    height: 30px;
+    float: left;
+    background-color: #999;
+    font-size: 16px;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    border: 0;
+}
+
+#output input {
+    display: block;
+    width: 700px;
+    height: 30px;
+    float: left;
+    background-color: #eee;
+    font-size: 15px;
+    color: #333333;
+    line-height: 40px;
+    text-align: left;
+    text-indent: 10px;
+}
+
+#mynetwork {
+    width: 1000px;
+    height: 600px;
+    margin: 20px auto;
+    border: 2px solid black;
+    background-color: white;
+    opacity: 0.8;
+}
+
+#cy {
+    width: 1200px;
+    height: 550px;
+    margin: 20px auto;
+    border: 2px solid black;
+    background-color: white;
+    opacity: 0.8;
+}

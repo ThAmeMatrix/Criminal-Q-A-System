@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criminal-Q&A-System</title>
+    <link href="../static/css/style.css" rel="stylesheet"/>
+    <!--    <link href="../static/css/vis-network.min.css" rel="stylesheet"/> -->
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../static/js/cytoscape.min.js"></script>
+    <!--    <script src="../static/js/vis.js"></script> -->
+    <!--    <script src="../static/js/code.js"></script> -->
+    <script>
+        function doTTS(ttsText){
+			var ttsDiv = document.getElementById('bdtts_div_id');
+			var ttsAudio = document.getElementById('tts_autio_id');
+
+			// 实现播放内容的替换
+			ttsDiv.removeChild(ttsAudio);
+			var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+			var sss = '<source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=5&text='+ttsText+'" type="audio/mpeg">';
+			var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+			var au2 = '</audio>';
+			ttsDiv.innerHTML = au1 + sss + eee + au2;
+
+			ttsAudio = document.getElementById('tts_autio_id');
+
+			ttsAudio.play();
+		}
+        $(function () {
+            $.get('/graph/{{ question }}', function (result) {
+                var style = [
+                    {selector: 'node[label = "Cases"]', css: {'background-color': '#ff4632','height': 60,'width' : 60,'content': 'data(name)'}},
+                    {selector: 'node[label = "Crime"]', css: {'background-color': '#6772f5','height': 30,'width' : 30,'content': 'data(name)'}},
+                    {selector: 'node[label = "Drugs"]', css: {'background-color': '#ad22fc','height': 30,'width' : 30,'content': 'data(name)'}},
+                    {selector: 'node[label = "Penalty"]', css: {'background-color': '#ccc252','height': 30,'width' : 30,'content': 'data(name)'}},
+                    {selector: 'node[label = "People"]', css: {'background-color': '#56834c','height': 30,'width' : 30,'content': 'data(name)'}},
+                    {selector: 'edge[relationship = "appear"]',css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 3}},
+                    {selector: 'edge[relationship = "contain"]', css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 3}},
+                    {selector: 'edge[relationship = "involve"]', css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 3}},
+                    {selector: 'edge[relationship = "involved_in"]', css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 10,
+                            'target-arrow-color': '#475e60','line-style':'dashed','curve-style':'unbundled-bezier'}},
+                    {selector: 'edge[relationship = "judge"]', css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 3}},
+                    {selector: 'edge[relationship = "judged_by"]', css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 3}},
+                    {selector: 'edge[relationship = "punish"]', css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 3}},
+                    {selector: 'edge[relationship = "punished_by"]', css: {'content': 'data(relationship)', 'target-arrow-shape': 'triangle','width': 3}},
+                    {
+                        selector: 'node[label = "Person"]',
+                        css: {
+                            'background-color': '#6FB1FC',
+                            'content': 'data(name)',
+
+                            'text-valign': 'center',
+                            'color': 'white',
+                            "height": 60,
+                            "width": 60,
+
+                            'text-outline-width': 2,
+                            'text-outline-color': '#316383',//颜色设置
+                            "label": "data(name)"
+                        }
+                    },
+                    {
+                        selector: 'node[label = "Movie"]',
+                        css: {
+                            'background-color': '#F5A45D',
+                            'content': 'data(title)',
+
+                            'text-valign': 'center',
+                            'color': 'white',
+                            "height": 60,
+                            "width": 60,
+
+                            'text-outline-width': 2,
+                            'text-outline-color': '#316383',//颜色设置
+                            "label": "data(title)"
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        css: {
+                            'content': 'data(relationship)',
+                            'target-arrow-shape': 'triangle',
+
+                            'curve-style': 'bezier',
+                            "label": "data(relationship)",
+                            'target-arrow-color': 'black',
+                            'line-color': '#ccc',
+                            'width': 1
+                        }
+                    },
+                    {
+                        selector: ':selected',
+                        css: {
+                            'content': 'data(value)',
+                            'background-color': 'red',
+                            'line-color': 'red',
+                            'target-arrow-color': 'red',
+                            'source-arrow-color': 'red'
+                        }
+                    },
+                    {
+                        selector: '.background',
+                        css: {
+                            "text-background-opacity": 1,
+                            "text-background-color": "#ccc",
+                            "text-background-shape": "roundrectangle",
+                            "text-border-color": "#000",
+                            "text-border-width": 1,
+                            "text-border-opacity": 1
+                        }
+                    },
+                    {
+                        selector: 'node[label="main"]',
+                        css: {
+                            "background-color": '#d0413e',
+                            'text-outline-width': 2,
+                            'text-outline-color': '#d0413e',
+                        }
+                    },
+                    {
+                        selector: '.faded"]',
+                        css: {
+                            'opacity': 0.25,
+                            'text-opacity': 0
+                        }
+                    },
+                ];
+                var cy = cytoscape({
+                    container: document.getElementById('cy'),
+                    boxSelectionEnabled: false,
+                    autounselectify: true,
+                    style: style,
+                    {#layout: {name: 'cose', fit: true},#}
+                    layout: {
+                        name: 'cose',
+                        fit: true,
+                        padding: 30, // the padding on fit
+                        startAngle: 4 / 2 * Math.PI, // where nodes start in radians
+                        sweep: undefined, // how many radians should be between the first and last node (defaults to full circle)
+                        clockwise: true, // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
+                        equidistant: false, // whether levels have an equal radial distance betwen them, may cause bounding box overflow
+                        minNodeSpacing: 100, // min spacing between outside of nodes (used for radius adjustment)
+                    }, // 整体布局
+                    elements: result.elements // 元素 点、边
+                });
+                cy.on('tap', 'node', {foo: 'bar'}, function (evt) {
+                    console.log(evt.data.foo); // 'bar'
+                    var node = evt.cyTarget;
+                    console.log('tapped ' + JSON.stringify(node.data()))
+                    alert(JSON.stringify(node.data()))
+                });
+
+                var layout = cy.layout({
+                    name: 'concentric',
+                    fit: true,
+                    padding: 30, // the padding on fit
+                    startAngle: 4 / 2 * Math.PI, // where nodes start in radians
+                    sweep: undefined, // how many radians should be between the first and last node (defaults to full circle)
+                    clockwise: true, // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
+                    equidistant: false, // whether levels have an equal radial distance betwen them, may cause bounding box overflow
+                    minNodeSpacing: 10000 // min spacing between outside of nodes (used for radius adjustment)
+                });
+
+                layout.run();
+
+                var strque = JSON.stringify(result.elements.que);
+                var strans = JSON.stringify(result.elements.ans);
+                var answer = document.getElementById("question_before");
+                answer.value= strque.substring(1, strque.length - 1);
+                answer = document.getElementById("answer");
+                answer.value= strans.substring(1, strans.length - 1);
+                doTTS(answer.value)
+
+            }, 'json');
+        });
+    </script>
+    <!--
+    <script>
+        $.get('/graph', function (result) {
+            // create a network
+            var container = document.getElementById('mynetwork');
+            var options = {};
+            var network = new vis.Network(container, result.elements, options);
+        }, 'json');
+    </script>
+    -->
+</head>
+<body>
+<div id="bdtts_div_id">
+    <audio id="tts_autio_id" autoplay="autoplay">
+        <embed id="tts_embed_id" height="0" width="0" src="">
+    </audio>
+</div>
+
+<div id="title">
+    <p>Criminal Case <img src="../static/img/2.png" align="center"/> System</p>
+    <br/>
+    <h4>Writer: Shijun Chen, Haowei Chen, Qingwei Chen</h4>
+</div>
+
+<div id="search">
+    <form action="/service" id="research" method="get">
+        <input type="text" placeholder="请输入需要查询的问题" name="question" id="input_question">
+        <button type="submit" id="button_submit" onclick="getQue()">查 询 答 案</button>
+    </form>
+    <img src="../static/img/1.jpg" align="left"/>
+    <form action="" id="output">
+        <input type="text" disabled="disabled" name="question_before" value="" placeholder="查询问题为..." id="question_before">
+    </form>
+    <form action="" id="output">
+        <input type="text" disabled="disabled" name="answer" value="" placeholder="查询结果为..." id="answer">
+    </form>
+
+</div>
+
+<!--vis.js-->
+<!--<div id="mynetwork"></div>-->
+<div id="cy"></div>
+</body>
+</html>
